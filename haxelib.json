@@ -1,0 +1,14 @@
+{
+	"name" : "textpop",
+	"url" : "https://github.com/bitDecayGames/text-pop",
+	"license" : "MIT",
+	"tags": ["text"],
+	
+    "description" : "Simple text pop up library",
+    "version" : "0.1.0-alpha",
+	"releasenote" : "Initial attempt",
+	"contributors" : ["MondayHopscotch"],
+	"dependencies" : {
+		"flixel": "4.7.0"
+	}
+}
