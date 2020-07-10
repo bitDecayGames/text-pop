@@ -24,27 +24,23 @@ class JumpAway implements Style {
 		this.time = time;
 	}
 
-	public function Stylize(obj:Dynamic):FlxTween {
-		if (Std.is(obj, FlxObject)) {
-			var flxObj:FlxObject = obj;
-			var xJump:Float = 50;
-			if (dir == LEFT) {
-				xJump = distance * -1;
-			}
-			var startY = flxObj.y;
-			FlxTween.tween(flxObj, {x: flxObj.x + xJump}, time);
-			var up = FlxTween.tween(flxObj, { y: startY - height}, time / 2,
-				{ ease: FlxEase.sineOut});
-			var down = FlxTween.tween(flxObj,
-				{
-					y: startY,
-					alpha: 0
-				}, time / 2,
-				{ ease: FlxEase.sineIn});
-			up.then(down);
-			return down;
+	public function Stylize(obj:FlxObject):FlxTween {
+		var flxObj:FlxObject = obj;
+		var xJump:Float = 50;
+		if (dir == LEFT) {
+			xJump = distance * -1;
 		}
-
-		return null;
+		var startY = flxObj.y;
+		FlxTween.tween(flxObj, {x: flxObj.x + xJump}, time);
+		var up = FlxTween.tween(flxObj, { y: startY - height}, time / 2,
+			{ ease: FlxEase.sineOut});
+		var down = FlxTween.tween(flxObj,
+			{
+				y: startY,
+				alpha: 0
+			}, time / 2,
+			{ ease: FlxEase.sineIn});
+		up.then(down);
+		return down;
 	}
 }

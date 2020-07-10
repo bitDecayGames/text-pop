@@ -13,12 +13,9 @@ class FloatAway implements Style {
 		this.life = life;
 	}
 
-	public function Stylize(obj:Dynamic):FlxTween {
-		if (Std.is(obj, FlxObject)) {
-			var flxObj:FlxObject = obj;
-			var tween = FlxTween.tween(flxObj, { y: flxObj.y - height, alpha: 0}, life);
-			return tween;
-		}
-		return null;
+	public function Stylize(obj:FlxObject):FlxTween {
+		var flxObj:FlxObject = obj;
+		var tween = FlxTween.tween(flxObj, { y: flxObj.y - height, alpha: 0}, life);
+		return tween;
 	}
 }

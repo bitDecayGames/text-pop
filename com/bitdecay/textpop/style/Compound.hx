@@ -1,6 +1,7 @@
 package com.bitdecay.textpop.style;
 
 import flixel.tweens.FlxTween;
+import flixel.FlxObject;
 
 // A way of combining styles, using the last provided style as the marker
 // for when the style is finished. Note that strange interactions may occur
@@ -13,15 +14,27 @@ class Compound implements Style {
 		this.styles = styles;
 	}
 
-	public function Stylize(obj:Dynamic):FlxTween {
-		var tween:FlxTween;
+	public function Stylize(obj:FlxObject):FlxTween {
+		var tweens:Array<FlxTween> = [];
 		for (i in 0...styles.length) {
-			tween = styles[i].Stylize(obj);
-			if (i == styles.length-1) {
-				return tween;
+			tweens.push(styles[i].Stylize(obj));
+		}
+
+		if (tweens.length == 0) {
+			return null;
+		}
+
+		// Ensure that we cancel all tweens once our last tween finishes
+		tweens[tweens.length-1].onComplete = (t) -> {
+			for (tween in tweens) {
+				tween.cancel();
 			}
 		}
 
-		return null;
+		// Hand back a no-op empty tween so our onComplete doesn't get overwritten
+		var finalTween = FlxTween.tween(obj, {}, 0);
+		tweens[tweens.length-1].then(finalTween);
+
+		return finalTween;
 	}
 }

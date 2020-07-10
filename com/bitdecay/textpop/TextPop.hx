@@ -14,25 +14,27 @@ class TextPop extends FlxBasic {
 
 	private static var pool:FlxPool<Instance> = new FlxPool<Instance>(Instance);
 	
-	public static function pop(x:Int, y:Int, text:String, style:Style = null) {
+	public static function pop(x:Int, y:Int, text:String, style:Style = null, size:Int = 8) {
 		var obj = pool.get();
+		obj.size = size;
 		obj.setPosition(x, y);
 		obj.text = text;
+		obj.alpha = 1;
+
 
 		if (style == null) {
 			style = new FloatAway(50, 1);
 		}
 
-		FlxG.state.add(obj);
-		
 		var tween = style.Stylize(obj);
 		if (tween != null) {
 			tween.onComplete = (t) -> {
 				FlxG.state.remove(obj);
-				obj.alpha = 1;
 				pool.put(obj);
 			}
 		}
+
+		FlxG.state.add(obj);
 	}
 
 	override public function destroy() {

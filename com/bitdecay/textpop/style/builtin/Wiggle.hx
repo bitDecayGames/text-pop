@@ -15,15 +15,11 @@ class Wiggle implements Style {
 		this.cycleTime = cycleTime;
 	}
 
-	public function Stylize(obj:Dynamic):FlxTween {
-		if (Std.is(obj, FlxObject)) {
-			var flxObj:FlxObject = obj;
-			return FlxTween.tween(obj, { x: flxObj.x + dist}, cycleTime, {
-				type: FlxTweenType.PINGPONG,
-				ease: FlxEase.sineInOut
-			});
-		}
-
-		return null;
+	public function Stylize(obj:FlxObject):FlxTween {
+		var flxObj:FlxObject = obj;
+		return FlxTween.tween(obj, { x: flxObj.x + dist}, cycleTime, {
+			type: FlxTweenType.PINGPONG,
+			ease: FlxEase.sineInOut
+		});
 	}
 }
